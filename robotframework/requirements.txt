@@ -1,8 +1,7 @@
-pip
+#pip3
 robotframework==3.1.1
 robotframework-seleniumlibrary==3.3.1
-robotframework-httplibrary==0.4.2
 pyvirtualdisplay==0.2
 robotframework-pabot==0.56
-robotframework-requests==0.5
+robotframework-httpctrl==0.1.0
 retry

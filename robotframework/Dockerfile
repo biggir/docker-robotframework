@@ -16,13 +16,13 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get -yqq  update \
     && apt-get install -y software-properties-common \
 
-#install python 3 + urrlib + requests and pip 3
+#install pip3 and python3 + libraries
     && add-apt-repository ppa:jonathonf/python-3.6 \
     && apt-get -yqq update \
     && apt-get install -y build-essential python3.6 python3.6-dev python3-pip python3.6-venv \
     && python3.6 -m pip install pip --upgrade \
-    && pip3 install --upgrade urllib3 \
-    && pip3 install --upgrade requests \
+    && pip install --upgrade urllib3 \
+    #&& pip install requests \
     && apt-get upgrade -yqq \
     && apt-get install -y \
 
@@ -71,15 +71,15 @@ RUN apt-get -yqq  update \
     && echo "original file: /opt/chromedriver-$CHROMEDRIVER_VERSION/chromedriver" \
     && echo "linked to file: /usr/local/bin/chromedriver" \
     && ln -fs /opt/chromedriver-$CHROMEDRIVER_VERSION/chromedriver /usr/local/bin/chromedriver
-    #&& mkdir -p /opt/chromedriver \
 
 # Fix hanging Chrome, see https://github.com/SeleniumHQ/docker-selenium/issues/87
 ENV DBUS_SESSION_BUS_ADDRESS /dev/null
 ENV DISPLAY=:99
 
-#Set python 3.6 to default python version
+#Set python 3.6 to default python version and io-encoding
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.6 1 \
-    && update-alternatives  --set python /usr/bin/python3.6
+    && update-alternatives  --set python /usr/bin/python3.6 \
+    && export PYTHONIOENCODING="utf-8"
 
 # Install Robot Framework libraries
 #(pypi setup for jsonlibrary is broken and it needs separate installation from master)
